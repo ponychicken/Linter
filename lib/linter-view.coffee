@@ -61,7 +61,7 @@ class LinterView
         throttleInterval = parseInt(lintOnModifiedDelayMS)
         throttleInterval = 1000 if isNaN throttleInterval
         # create throttled lint command
-        @throttledLint = (_.throttle @lint, throttleInterval).bind this
+        @throttledLint = (_.debounce @lint, throttleInterval).bind this
 
     @subscriptions.add atom.config.observe 'linter.lintOnChange',
       (lintOnModified) => @lintOnModified = lintOnModified
